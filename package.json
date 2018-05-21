@@ -1,7 +1,7 @@
 {
   "name": "flexfs",
   "main": "./flexfs.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Flexible and easy to use wrapper for node's `fs` or subclasses.",
   "repository": "https://github.com/isysd/flexfs",
   "author": "isysd <public@iramiller.com>",
@@ -10,6 +10,11 @@
     "test": "mocha",
     "lint": "eslint --env browser *.js* && eslint --env node *.js*",
     "fix": "eslint --fix *.js*"
+  },
+  "dependencies": {
+    "browserfs": "https://github.com/isysd/BrowserFS.git#cache",
+    "pify": "^3.0.0",
+    "window-or-global": "^1.0.1"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
