@@ -1,0 +1,33 @@
+{
+  "name": "flexfs",
+  "main": "./flexfs.js",
+  "version": "1.0.0",
+  "description": "Flexible and easy to use wrapper for node's `fs` or subclasses.",
+  "repository": "https://github.com/isysd/flexfs",
+  "author": "isysd <public@iramiller.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha",
+    "lint": "eslint --env browser *.js* && eslint --env node *.js*",
+    "fix": "eslint --fix *.js*"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-es5": "^1.3.1",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "mocha": "^5.1.1",
+    "pre-commit": "^1.2.2"
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
+  "engines": {
+    "node": ">=10"
+  }
+}
