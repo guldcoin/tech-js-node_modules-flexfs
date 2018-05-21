@@ -35,12 +35,15 @@ function getDefaultConfig () {
   }
 }
 
-module.exports = async function setFS (config) {
+module.exports = async function flexfs (config) {
   config = config || getDefaultConfig()
-  return pify(BrowserFS.configure)(config, function (e) {
-    if (e) throw e
-    global.fs = pify(BrowserFS.BFSRequire('fs'))
+  function finishFS (tfs) {
+    global.fs = pify(tfs)
     global.fs.mkdirp = mkdirp
     return global.fs
+  }
+  if (config.fs) return finishFS(config.fs)
+  return pify(BrowserFS.configure)(config).then(() => {
+    return finishFS(BrowserFS.BFSRequire('fs'))
   })
 }
