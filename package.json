@@ -1,8 +1,8 @@
 {
   "name": "flexfs",
   "main": "./flexfs.js",
-  "version": "1.0.3",
-  "description": "Flexible and easy to use wrapper for node's `fs` or subclasses.",
+  "version": "1.1.0",
+  "description": "Flexible and easy to use wrapper for node's `fs` or subclasses, with Promises and value add functions.",
   "repository": "https://github.com/isysd/flexfs",
   "author": "isysd <public@iramiller.com>",
   "license": "MIT",
@@ -17,6 +17,7 @@
     "window-or-global": "^1.0.1"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-es5": "^1.3.1",
@@ -25,7 +26,7 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.1.0",
-    "mocha": "^5.1.1",
+    "mocha": "^5.2.0",
     "pre-commit": "^1.2.2"
   },
   "pre-commit": [
