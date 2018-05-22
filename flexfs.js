@@ -49,7 +49,7 @@ function wrapFS (tfs, prefix) {
 
 function getDefaultConfig () {
   if (chrome && chrome.storage) {
-    var config = {
+    return {
       fs: 'ChromeStorage',
       options: {
         'storeType': 'local',
@@ -60,8 +60,14 @@ function getDefaultConfig () {
       }
     }
   } else {
-    return {
-      fs: 'InMemory'
+    try {
+      return {
+        fs: require('fs')
+      }
+    } catch (e) {
+      return {
+        fs: 'InMemory'
+      }
     }
   }
 }

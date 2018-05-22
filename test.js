@@ -5,7 +5,7 @@ const nodefs = pify(require('fs'))
 const flexfs = require('./flexfs.js')
 const prefix = require('os').tmpdir()
 let zipdata
-const browserfs = require('../BrowserFS/dist/browserfs.js')
+const browserfs = require('browserfs')
 const Buffer = require('buffer/').Buffer
 
 describe('passthrough', function () {

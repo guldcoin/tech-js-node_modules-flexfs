@@ -1,7 +1,7 @@
 {
   "name": "flexfs",
   "main": "./flexfs.js",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Flexible and easy to use wrapper for node's `fs` or subclasses, with Promises and value add functions.",
   "repository": "https://github.com/isysd/flexfs",
   "author": "isysd <public@iramiller.com>",
