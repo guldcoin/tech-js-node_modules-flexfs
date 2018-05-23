@@ -5,7 +5,8 @@ const nodefs = pify(require('fs'))
 const flexfs = require('./flexfs.js')
 const prefix = require('os').tmpdir()
 let zipdata
-const browserfs = require('browserfs')
+const BrowserFS = require('browserfs')
+//const BrowserFS = require('../BrowserFS/dist/browserfs.js')
 const Buffer = require('buffer/').Buffer
 
 describe('passthrough', function () {
@@ -58,7 +59,7 @@ describe('passthrough', function () {
       zipdata = Buffer(await nodefs.readFile('./fixtures/guld.zip'))
     })
     it('sees files already in new root', async () => {
-      this.fs = await pify(browserfs.FileSystem.ZipFS.Create)({
+      this.fs = await pify(BrowserFS.FileSystem.ZipFS.Create)({
         zipData: zipdata,
         filename: '/'
       })

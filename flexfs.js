@@ -1,6 +1,7 @@
 /* global chrome */
 const pify = require('pify')
 const BrowserFS = require('browserfs')
+//const BrowserFS = require('../BrowserFS/dist/browserfs.js')
 const path = require('path')
 const global = require('window-or-global')
 
@@ -48,7 +49,7 @@ function wrapFS (tfs, prefix) {
 }
 
 function getDefaultConfig () {
-  if (chrome && chrome.storage) {
+  if (typeof chrome !== 'undefined' && chrome.storage) {
     return {
       fs: 'ChromeStorage',
       options: {
