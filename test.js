@@ -1,12 +1,11 @@
-/* global describe:false it:false Ledger:false chai:false before:false */
+/* global describe:false it:false before:false */
 const chai = require('chai')
 const pify = require('pify')
 const nodefs = pify(require('fs'))
-const flexfs = require('./flexfs.js')
+const { flexfs, readOrFetch } = require('./flexfs.js')
 const prefix = require('os').tmpdir()
 let zipdata
 const BrowserFS = require('browserfs')
-//const BrowserFS = require('../BrowserFS/dist/browserfs.js')
 const Buffer = require('buffer/').Buffer
 
 describe('passthrough', function () {
@@ -32,7 +31,7 @@ describe('passthrough', function () {
       this.fs = await flexfs(config)
     })
     it('sees files already in new root', async () => {
-      content = await this.fs.readFile('/tmp.txt', 'utf8')
+      var content = await this.fs.readFile('/tmp.txt', 'utf8')
       chai.assert.equal(content, 'hello world')
     })
     it('cannot see outside files', async () => {
@@ -45,26 +44,26 @@ describe('passthrough', function () {
       }
     })
     it('can write files', async () => {
-      try {
-        await this.fs.writeFile('/tmp2.txt', 'hello world', {'encoding': 'utf8'})
-      } catch (e) {
-        console.error(e)
-      }
-      contents = await nodefs.readFile(`${prefix}/tmp2.txt`, 'utf8')
+      await this.fs.writeFile('/tmp2.txt', 'hello world', {'encoding': 'utf8'})
+      var contents = await nodefs.readFile(`${prefix}/tmp2.txt`, 'utf8')
       chai.assert.equal(contents, 'hello world')
     })
   })
-  describe('zip', async () => {
-    before(async () => {
-      zipdata = Buffer(await nodefs.readFile('./fixtures/guld.zip'))
+  describe('readOrFetch', () => {
+    it('gets the test fixture', async () => {
+      var data = await readOrFetch('./fixtures/guld.zip')
+      chai.assert.exists(data)
+      zipdata = new Buffer(data)
     })
+  })
+  describe('zip', () => {
     it('sees files already in new root', async () => {
       this.fs = await pify(BrowserFS.FileSystem.ZipFS.Create)({
         zipData: zipdata,
         filename: '/'
       })
       this.fs = await flexfs({fs: this.fs})
-      list = await this.fs.readdir('/ledger')
+      var list = await this.fs.readdir('/ledger')
       chai.assert.equal(list.length, 3)
     })
     it('copies file out of hybrid root', async () => {
@@ -87,7 +86,7 @@ describe('passthrough', function () {
         }
       }
       this.fs = await flexfs(config)
-      var list = await fs.readdir('/BLOCKTREE/guld/ledger')
+      var list = await this.fs.readdir('/BLOCKTREE/guld/ledger')
       chai.assert.equal(list.length, 3)
       await this.fs.cpr(`/BLOCKTREE/guld`, `/BLOCKTREE/pokerface`)
       list = await this.fs.readdir('/BLOCKTREE/guld/ledger')

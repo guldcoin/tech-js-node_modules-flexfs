@@ -1,13 +1,12 @@
-/* global chrome */
+/* global fetch */
 const pify = require('pify')
 const BrowserFS = require('browserfs')
-//const BrowserFS = require('../BrowserFS/dist/browserfs.js')
 const path = require('path')
-const global = require('window-or-global')
+var fs
 
 async function mkdirp (p) {
   try {
-    return global.fs.mkdir(p)
+    return fs.mkdir(p)
   } catch (e) {
     var parent = path.dirname(p)
     if (e && e.code && e.code === 'ENOENT' && parent !== '/') {
@@ -26,12 +25,12 @@ async function cpr (p, np) {
       return cpr(path.join(p, l), path.join(np, l))
     }))
   } else {
-    return await fs.copyFile(p, np)
+    return fs.copyFile(p, np)
   }
 }
 
 async function copyFile (p, np) {
-  return await fs.writeFile(np, (await fs.readFile(p)))
+  return fs.writeFile(np, (await fs.readFile(p)))
 }
 
 function wrapFS (tfs, prefix) {
@@ -39,7 +38,7 @@ function wrapFS (tfs, prefix) {
   var newfs = Object.create(Object.getPrototypeOf(tfs))
   Object.keys(tfs).forEach(f => {
     if (typeof tfs[f] === 'function') {
-      newfs[f] = function(...args) {
+      newfs[f] = function (...args) {
         args[0] = `${prefix}${args[0]}`
         return tfs[f](...args)
       }
@@ -73,15 +72,31 @@ function getDefaultConfig () {
   }
 }
 
-module.exports = async function flexfs (config) {
+async function readOrFetch (p) {
+  try {
+    return require('fs').readFileSync(p)
+  } catch (e) {
+    // TODO sort by error type, maybe throw
+    if (typeof fetch === 'function') {
+      let response = await fetch(p)
+      if (response.ok) {
+        return response.blob()
+      } else {
+        throw e
+      }
+    } else throw e
+  }
+}
+
+async function flexfs (config) {
   config = config || getDefaultConfig()
   function finishFS (tfs) {
-    global.fs = pify(tfs)
-    global.fs.mkdirp = mkdirp
-    if (!global.fs.hasOwnProperty('copyFile')) global.fs.copyFile = copyFile
-    global.fs.cpr = cpr
-    if (config.prefix) global.fs = wrapFS(global.fs, config.prefix)
-    return global.fs
+    fs = pify(tfs)
+    fs.mkdirp = mkdirp
+    if (!fs.hasOwnProperty('copyFile')) fs.copyFile = copyFile
+    fs.cpr = cpr
+    if (config.prefix) fs = wrapFS(fs, config.prefix)
+    return fs
   }
   if (config.fs && (typeof config.fs !== 'string')) {
     return finishFS(config.fs)
@@ -89,4 +104,11 @@ module.exports = async function flexfs (config) {
   return pify(BrowserFS.configure)(config).then(() => {
     return finishFS(BrowserFS.BFSRequire('fs'))
   })
+}
+
+module.exports = {
+  flexfs: flexfs,
+  readOrFetch: readOrFetch,
+  getDefaultConfig: getDefaultConfig,
+  wrapFS: wrapFS
 }

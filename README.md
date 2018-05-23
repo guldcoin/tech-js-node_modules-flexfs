@@ -19,15 +19,12 @@ To use flexfs, first you must first choose a configuration and then initialize a
 For configuration, flexfs adapted the format used by `BrowserFS`
 
 ```
-// fs is globally undefined
 const flexfs = require('flexfs')
 let config = {
   fs: 'InMemory'
 }
 flexfs(config).then(tfs => {
   // tfs is a wrapped fs instance
-  // global.fs is now set
-  // tfs is the same object as global.fs
 })
 ```
 
