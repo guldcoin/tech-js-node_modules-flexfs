@@ -1,6 +1,6 @@
 # flexfs
 
-[![Build Status](https://travis-ci.org/isysd/flexfs.svg?branch=master)](https://travis-ci.org/isysd/flexfs) [![Coverage Status](https://coveralls.io/repos/github/isysd/flexfs/badge.svg?branch=master)](https://coveralls.io/github/isysd/flexfs?branch=master)
+[![npm](https://img.shields.io/npm/v/flexfs.svg)](https://www.npmjs.com/package/flexfs) [![Build Status](https://travis-ci.org/isysd/flexfs.svg?branch=master)](https://travis-ci.org/isysd/flexfs) [![Coverage Status](https://coveralls.io/repos/github/isysd/flexfs/badge.svg?branch=master)](https://coveralls.io/github/isysd/flexfs?branch=master)
 
 Flexible and easy to use mixins for node's fs or subclasses. Works in both the browser and nodeJS.
 

@@ -98,7 +98,7 @@ describe('extraFS', function () {
       chai.assert.equal(list.length, 2)
       list = await tfs.readdir('/BLOCKTREE/pokerface/ledger')
       chai.assert.equal(list.length, 3)
-    }).timeout(90000)
+    }).timeout(120000)
   })
 })
 
