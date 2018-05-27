@@ -1,7 +1,8 @@
 {
   "name": "flexfs",
   "main": "./flexfs.js",
-  "version": "2.1.1",
+  "browser": "./dist/flexfs.js",
+  "version": "2.2.0",
   "description": "Flexible and easy to use mixins for node's `fs` or subclasses, with Promises and value add functions.",
   "repository": "https://github.com/isysd/flexfs",
   "author": "isysd <public@iramiller.com>",

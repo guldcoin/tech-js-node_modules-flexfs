@@ -12,7 +12,7 @@ Please use npm to install.
 
 ##### Browser
 
-To use in the browser, please use browserify or webpack to include and build flexfs. No standalone browser library is currently implemented, but can be if requested.
+To use in the browser, please use browserify or webpack to include and build flexfs. Alternately, use the standalone package in `./dist/flexfs.js`.
 
 ### Usage
 
