@@ -18,12 +18,25 @@ To use in the browser, please use browserify or webpack to include and build fle
 
 To use flexfs, first you must initialize an instance of your favorite `fs` library. For example, node's native [fs](https://nodejs.org/api/fs.html) and [BrowserFS](https://github.com/jvilk/BrowserFS) are used in tests.
 
+
 ```
-const { SupplimentFS, ExtraFS } = require('flexfs')
+const { supplimentFS, extraFS } = require('flexfs')
 const fs = require('fs')
-// now extend with flexfs mixin
-fs.mkdirp = ExtraFS.mkdirp
-fs.cpr = ExtraFS.cpr
+// now dynamically attach functions from flexfs mixin
+fs.mkdirp = extraFS.mkdirp
+fs.cpr = extraFS.cpr
+// use fs.mkdirp and fs.cpr
+```
+
+To use as an es6 class mixin, first use [object-to-class](https://github.com/isysd/object-to-class).
+
+
+```
+const o2c = require('object-to-class')
+const ExtraFS = o2c(extraFS, 'ExtraFS')
+class MyFS extends ExtraFS {}
+let myfs = new MyFS()
+myfs instanceof ExtraFS // true
 ```
 
 ### Promise API
@@ -32,7 +45,7 @@ Every function is either natively written for Promises or is converted using [pi
 
 ### Mixins
 
-##### ExtraFS
+##### extraFS
 
 The following functions were implemented as extras, available through ExtraFS.
 
@@ -41,7 +54,7 @@ The following functions were implemented as extras, available through ExtraFS.
 | mkdirp   | Make a directory and any parent directories which didn't exists. |
 | cpr | Copy a directory recursively. |
 
-##### SupplimentFS
+##### supplimentFS
 
 The following functions are alternate implementation of core fs functionality. They are useful for incomplete or new fs implementations.
 

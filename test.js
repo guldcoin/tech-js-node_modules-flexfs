@@ -2,7 +2,7 @@
 const chai = require('chai')
 const pify = require('pify')
 const nodefs = pify(require('fs'))
-const { SupplimentFS, ExtraFS } = require('./flexfs.js')
+const { supplimentFS, extraFS } = require('./flexfs.js')
 // const prefix = require('os').tmpdir()
 const BrowserFS = require('browserfs')
 const Buffer = require('buffer/').Buffer
@@ -20,7 +20,7 @@ describe('BrowserFS', () => {
       })
     })
     await tfs.writeFile('/tmp.txt', 'hello world')
-    ocopy(tfs, SupplimentFS)
+    ocopy(tfs, supplimentFS)
     await tfs.copyFile('/tmp.txt', '/tmp.copy', 'utf8')
     var content = await tfs.readFile('/tmp.txt', 'utf8')
     chai.assert.equal(content, 'hello world')
@@ -28,7 +28,7 @@ describe('BrowserFS', () => {
     chai.assert.equal(content, 'hello world')
   })
 })
-describe('ExtraFS', function () {
+describe('extraFS', function () {
   before(async () => {
     this.zipData = new Buffer(await readOrFetch('./fixtures/guld.zip'))
   })
@@ -50,7 +50,7 @@ describe('ExtraFS', function () {
           resolve()
         })
       })
-      ocopy(tfs, ExtraFS)
+      ocopy(tfs, extraFS)
       await tfs.mkdirp(`/BLOCKTREE/guld/ledger/GULD/.git`)
       chai.assert.isTrue(Array.isArray(await tfs.readdir('/BLOCKTREE')))
       chai.assert.isTrue(Array.isArray(await tfs.readdir('/BLOCKTREE/')))
@@ -87,8 +87,8 @@ describe('ExtraFS', function () {
           resolve()
         })
       })
-      ocopy(tfs, SupplimentFS)
-      ocopy(tfs, ExtraFS)
+      ocopy(tfs, supplimentFS)
+      ocopy(tfs, extraFS)
       var list = await tfs.readdir('/BLOCKTREE/guld/ledger')
       chai.assert.equal(list.length, 3)
       await tfs.cpr(`/BLOCKTREE/guld`, `/BLOCKTREE/pokerface`)
@@ -102,7 +102,7 @@ describe('ExtraFS', function () {
   })
 })
 
-describe('SupplimentFS', function () {
+describe('supplimentFS', function () {
   describe('custom fs class', function () {
     before(async () => {
       await nodefs.writeFile('/tmp/tmp.txt', 'hello world')
@@ -111,7 +111,7 @@ describe('SupplimentFS', function () {
       var tfs = {
         readFile: nodefs.readFile,
         writeFile: nodefs.writeFile,
-        copyFile: SupplimentFS.copyFile
+        copyFile: supplimentFS.copyFile
       }
       await tfs.copyFile('/tmp/tmp.txt', '/tmp/tmp.copy', 'utf8')
       var content = await tfs.readFile('/tmp/tmp.txt', 'utf8')
@@ -121,8 +121,8 @@ describe('SupplimentFS', function () {
     })
     it('can bootstrap functions from fs global', async () => {
       global.fs = nodefs
-      await SupplimentFS.copyFile('/tmp/tmp.txt', '/tmp/tmp.copy2', 'utf8')
-      var content = await SupplimentFS.readFile('/tmp/tmp.copy2', 'utf8')
+      await supplimentFS.copyFile('/tmp/tmp.txt', '/tmp/tmp.copy2', 'utf8')
+      var content = await supplimentFS.readFile('/tmp/tmp.copy2', 'utf8')
       chai.assert.equal(content, 'hello world')
       delete global.fs
     })

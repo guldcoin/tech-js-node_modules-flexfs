@@ -36,12 +36,16 @@ async function cpr (p, np) {
   }
 }
 
+const supplimentFS = {
+  copyFile: copyFile
+}
+
+const extraFS = {
+  mkdirp: mkdirp,
+  cpr: cpr
+}
+
 module.exports = {
-  SupplimentFS: {
-    copyFile: copyFile
-  },
-  ExtraFS: {
-    mkdirp: mkdirp,
-    cpr: cpr
-  }
+  supplimentFS: supplimentFS,
+  extraFS: extraFS
 }
