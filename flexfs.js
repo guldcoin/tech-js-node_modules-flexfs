@@ -36,13 +36,41 @@ async function cpr (p, np) {
   }
 }
 
+async function mvr (p, np) {
+  var stats = await this.stat(p)
+  if (stats.isDirectory()) {
+    await this.mkdirp(np)
+    var list = await this.readdir(p)
+    return Promise.all(list.map(async (l) => {
+      await this.cpr(path.join(p, l), path.join(np, l))
+      await this.rimraf(path.join(p, l))
+    }))
+  } else {
+    return this.rename(p, np)
+  }
+}
+
+async function rimraf (p) {
+  var stats = await this.stat(p)
+  if (stats.isDirectory()) {
+    var list = await this.readdir(p)
+    return Promise.all(list.map(async (l) => {
+      return this.rimraf(path.join(p, l))
+    }))
+  } else {
+    return this.unlink(p)
+  }
+}
+
 const supplimentFS = {
   copyFile: copyFile
 }
 
 const extraFS = {
   mkdirp: mkdirp,
-  cpr: cpr
+  cpr: cpr,
+  mvr: mvr,
+  rimraf: rimraf
 }
 
 module.exports = {

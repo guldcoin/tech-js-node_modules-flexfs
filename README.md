@@ -53,6 +53,8 @@ The following functions were implemented as extras, available through ExtraFS.
 |----------|-------------|
 | mkdirp   | Make a directory and any parent directories which didn't exists. |
 | cpr | Copy a directory recursively. |
+| mvr | Move a directory recursively. |
+| rimraf | Remove a directory recursively. |
 
 ##### supplimentFS
 
