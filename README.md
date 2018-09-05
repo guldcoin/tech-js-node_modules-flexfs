@@ -1,23 +1,22 @@
 # flexfs
 
-[![npm](https://img.shields.io/npm/v/flexfs.svg)](https://www.npmjs.com/package/flexfs) [![Build Status](https://travis-ci.org/isysd/flexfs.svg?branch=master)](https://travis-ci.org/isysd/flexfs) [![Coverage Status](https://coveralls.io/repos/github/isysd/flexfs/badge.svg?branch=master)](https://coveralls.io/github/isysd/flexfs?branch=master)
+[![source](https://img.shields.io/badge/source-bitbucket-blue.svg)](https://bitbucket.org/guld/tech-js-node_modules-flexfs) [![issues](https://img.shields.io/badge/issues-bitbucket-yellow.svg)](https://bitbucket.org/guld/tech-js-node_modules-flexfs/issues) [![documentation](https://img.shields.io/badge/docs-guld.tech-green.svg)](https://guld.tech/lib/flexfs.html)
 
-Flexible and easy to use mixins for node's fs or subclasses. Works in both the browser and nodeJS.
+[![node package manager](https://img.shields.io/npm/v/flexfs.svg)](https://www.npmjs.com/package/flexfs) [![travis-ci](https://travis-ci.org/guldcoin/tech-js-node_modules-flexfs.svg)](https://travis-ci.org/guldcoin/tech-js-node_modules-flexfs?branch=guld) [![lgtm](https://img.shields.io/lgtm/grade/javascript/b/guld/tech-js-node_modules-flexfs.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/b/guld/tech-js-node_modules-flexfs/context:javascript) [![david-dm](https://david-dm.org/guldcoin/tech-js-node_modules-flexfs/status.svg)](https://david-dm.org/guldcoin/tech-js-node_modules-flexfs) [![david-dm](https://david-dm.org/guldcoin/tech-js-node_modules-flexfs/dev-status.svg)](https://david-dm.org/guldcoin/tech-js-node_modules-flexfs?type=dev)
 
-### Installation
+Flexible and easy to use mixins for node's `fs` or subclasses, with Promises and value add functions.
 
-Please use npm to install.
+### Install
 
-`npm i flexfs`
+##### Node
 
-##### Browser
-
-To use in the browser, please use browserify or webpack to include and build flexfs. Alternately, use the standalone package in `./dist/flexfs.js`.
+```sh
+npm i flexfs
+```
 
 ### Usage
 
 To use flexfs, first you must initialize an instance of your favorite `fs` library. For example, node's native [fs](https://nodejs.org/api/fs.html) and [BrowserFS](https://github.com/jvilk/BrowserFS) are used in tests.
-
 
 ```
 const { supplimentFS, extraFS } = require('flexfs')
@@ -30,7 +29,6 @@ fs.cpr = extraFS.cpr
 
 To use as an es6 class mixin, first use [object-to-class](https://github.com/isysd/object-to-class).
 
-
 ```
 const o2c = require('object-to-class')
 const ExtraFS = o2c(extraFS, 'ExtraFS')
@@ -39,11 +37,11 @@ let myfs = new MyFS()
 myfs instanceof ExtraFS // true
 ```
 
-### Promise API
+#### Promise API
 
 Every function is either natively written for Promises or is converted using [pify](https://github.com/sindresorhus/pify).
 
-### Mixins
+#### Mixins
 
 ##### extraFS
 
@@ -53,8 +51,6 @@ The following functions were implemented as extras, available through ExtraFS.
 |----------|-------------|
 | mkdirp   | Make a directory and any parent directories which didn't exists. |
 | cpr | Copy a directory recursively. |
-| mvr | Move a directory recursively. |
-| rimraf | Remove a directory recursively. |
 
 ##### supplimentFS
 
@@ -64,3 +60,6 @@ The following functions are alternate implementation of core fs functionality. T
 |----------|-------------|
 | copyFile | Copy a file from old location to new. (standard) |
 
+### License
+
+MIT Copyright isysd <public@iramiller.com>

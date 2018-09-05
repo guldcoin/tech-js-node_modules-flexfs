@@ -3,13 +3,14 @@
   "main": "./flexfs.js",
   "version": "2.3.0",
   "description": "Flexible and easy to use mixins for node's `fs` or subclasses, with Promises and value add functions.",
-  "repository": "https://github.com/isysd/flexfs",
+  "repository": "https://bitbucket.org/guld/tech-js-node_modules-flexfs",
   "author": "isysd <public@iramiller.com>",
   "license": "MIT",
   "scripts": {
-    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "test": "mocha",
     "lint": "eslint --env browser *.js* && eslint --env node *.js*",
-    "fix": "eslint --fix *.js*"
+    "fix": "eslint --fix *.js*",
+    "test:lint": "npm run lint && npm run test"
   },
   "dependencies": {},
   "devDependencies": {
@@ -38,5 +39,10 @@
   "readme": "README.md",
   "engines": {
     "node": ">=10"
-  }
+  },
+  "homepage": "https://guld.tech/lib/flexfs.html",
+  "keywords": [
+    "guld",
+    "node"
+  ]
 }

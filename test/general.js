@@ -2,7 +2,7 @@
 const chai = require('chai')
 const pify = require('pify')
 const nodefs = pify(require('fs'))
-const { supplimentFS, extraFS } = require('./flexfs.js')
+const { supplimentFS, extraFS } = require('../flexfs.js')
 // const prefix = require('os').tmpdir()
 const BrowserFS = require('browserfs')
 const Buffer = require('buffer/').Buffer
